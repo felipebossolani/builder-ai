@@ -1,0 +1,115 @@
+{
+  "name": "A04 - Etapa 4 - Output Estruturado e Auditável",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Form Input",
+      "type": "n8n-nodes-base.formTrigger",
+      "parameters": {
+        "fields": [
+          "nome",
+          "email",
+          "descricao"
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "name": "Gemini - Output Estruturado",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "url": "https://api.gemini.fake/validate",
+        "method": "POST",
+        "json": true,
+        "body": {
+          "system": "ROLE: Agente de Qualificação de Pedidos. OBJECTIVE: validar dados para CRM. GUARDRAILS: não inventar; respeitar regex de email; não aprovar dados vazios. I/O: Retorne JSON com schema exato: {\"status\":\"valido|invalido\",\"motivo\":\"string\",\"dadosCorrigidos\":{\"nome\":\"string\",\"email\":\"string\",\"descricao\":\"string\"}}",
+          "prompt": "Produza SOMENTE JSON obedecendo o schema. Sem comentários.",
+          "input": {
+            "nome": "={{$json[\"nome\"]}}",
+            "email": "={{$json[\"email\"]}}",
+            "descricao": "={{$json[\"descricao\"]}}"
+          }
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "Roteamento por Status",
+      "type": "n8n-nodes-base.switch",
+      "parameters": {
+        "rules": [
+          {
+            "operation": "equal",
+            "value": "valido",
+            "input": "={{$json[\"status\"]}}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4",
+      "name": "Salvar (Corrigidos)",
+      "type": "n8n-nodes-base.mySql",
+      "parameters": {
+        "query": "INSERT INTO pedidos (nome,email,descricao) VALUES (:nome,:email,:descricao)"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Abrir Ticket Revisão",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "url": "https://tickets.exemplo.com/abrir",
+        "method": "POST",
+        "json": true,
+        "body": {
+          "assunto": "Pedido inválido",
+          "payload": "={{$json}}"
+        }
+      }
+    },
+    {
+      "id": "6",
+      "name": "Log Auditável",
+      "type": "n8n-nodes-base.googleSheets",
+      "parameters": {
+        "operation": "append",
+        "sheetId": "1A2B3C",
+        "range": "Logs!A:D"
+      }
+    }
+  ],
+  "connections": {
+    "1": {
+      "main": [
+        [
+          "2"
+        ]
+      ]
+    },
+    "2": {
+      "main": [
+        [
+          "3"
+        ]
+      ]
+    },
+    "3": {
+      "main": [
+        [
+          "4"
+        ],
+        [
+          "5"
+        ]
+      ]
+    },
+    "2:log": {
+      "main": [
+        [
+          "6"
+        ]
+      ]
+    }
+  }
+}
