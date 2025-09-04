@@ -152,7 +152,7 @@
           "value": {
             "ts": "={{$json[\"ts\"]}}",
             "nome": "={{ $json.nome }}",
-            "email_norm": "={{ $json.email }}",
+            "email_norm": "={{ $json.email_norm }}",
             "telefone_norm": "={{ $json.telefone_norm }}",
             "tipo": "={{ $json.tipo }}",
             "orcamento_num": "={{ $json.orcamento_num }}",
@@ -465,7 +465,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "092d1c34-d45c-49b6-af71-ced323dd587d",
+  "versionId": "5edb1d22-1b94-4e9a-ac56-0dd499d36a29",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"

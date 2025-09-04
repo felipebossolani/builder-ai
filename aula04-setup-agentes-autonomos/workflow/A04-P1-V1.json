@@ -282,7 +282,7 @@
             "tipo": "={{ $json.tipo }}",
             "telefone_norm": "={{ $json.telefone_norm }}",
             "email_norm": "={{ $json.email_norm }}",
-            "orcamento_num": "={{ $json.orcamento }}",
+            "orcamento_num": "={{ $json.orcamento_num }}",
             "bairros_list": "={{ $json.bairros_list }}",
             "mensagem": "={{ $json.mensagem }}"
           },
@@ -1012,7 +1012,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "41053e00-cb36-4bb1-80f0-d3fb7ab52667",
+  "versionId": "2293a621-e27c-437e-84fe-152023fba914",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"
