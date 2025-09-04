@@ -1,0 +1,1022 @@
+{
+  "name": "Builder AI - 5A - Aula 04 - V01",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "8a892aaa-239b-41dd-ac80-81e1fc76836d",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1984,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Inbox_V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "c401998c-8afb-41f9-a992-b1eb7b06b998",
+      "name": "Read Leads_Inbox_V1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1680,
+        80
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "ab4be20b-cda1-48ed-821c-1a745bf4b9a2",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "91cc398b-2abf-49d8-a785-3bccd8d644ae",
+      "name": "IF status == novo",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1408,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "email_norm",
+              "value": "={{ String($json.email || \"\").trim().toLowerCase() }}"
+            },
+            {
+              "name": "telefone_norm",
+              "value": "={{ String($json.telefone || \"\").replace(/\\D/g,\"\") }}"
+            },
+            {
+              "name": "=bairros_list",
+              "value": "={{ \n  Array.isArray($json.bairros)\n    ? $json.bairros\n    : (String($json.bairros || '').trim() === '' \n        ? [] \n        : String($json.bairros).split(',').map(b => b.trim()).filter(Boolean)\n      )\n}}"
+            },
+            {
+              "name": "nome",
+              "value": "={{$json.nome}}"
+            },
+            {
+              "name": "tipo",
+              "value": "={{$json.tipo}}"
+            },
+            {
+              "name": "mensagem",
+              "value": "={{$json.mensagem}}"
+            },
+            {
+              "name": "ts",
+              "value": "={{$json.ts || new Date().toISOString()}}"
+            }
+          ],
+          "number": [
+            {
+              "name": "orcamento_num",
+              "value": "={{\n  $json.orcamento !== undefined\n  && String($json.orcamento).trim() !== ''\n  && !isNaN(Number($json.orcamento))\n    ? Number($json.orcamento)\n    : null\n}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "19de1ca2-11a9-412c-a7b3-7d7efd911098",
+      "name": "Set Normalize",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1120,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "f3ab644c-610b-45e4-b63a-ebf803d0ddda",
+              "leftValue": "={{ $json.email_norm }}",
+              "rightValue": "^[\\w\\.+-]+@[\\w\\.-]+\\.[A-Za-z]{2,}$",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "268ba8b6-b989-4bca-a5ae-91015e7c01c2",
+      "name": "IF email válido",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -848,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "5d4213b6-18b8-46be-ae7d-621a90ce64b1",
+              "leftValue": "={{$json[\"telefone_norm\"] ? $json[\"telefone_norm\"].length : 0}}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "2ec75b74-e6e4-4724-9a60-d2d04c5cabaf",
+              "leftValue": "={{$json[\"telefone_norm\"] ? $json[\"telefone_norm\"].length : 0}}",
+              "rightValue": 11,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e84300f7-40a0-46f5-aaaf-403a2dde969e",
+      "name": "IF telefone 10-11 dígitos",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "8e1ae831-24e0-4472-ad51-96b454f4fb02",
+              "leftValue": "={{$json[\"nome\"] || \"\"}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "aba3189d-1d38-4820-a055-bf80ce7b4a26",
+              "leftValue": "={{$json[\"orcamento_num\"] || 0}}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "1e3f04f7-dd3c-4c8d-abca-aeb39671c080",
+              "leftValue": "={{$json[\"tipo\"]}}",
+              "rightValue": "^(alugar|comprar)$",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "098a0c52-b9bb-4cb6-b162-fbd7e8630ba7",
+      "name": "IF obrigatórios ok",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 516672234,
+          "mode": "list",
+          "cachedResultName": "Leads_Normalized_V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit#gid=516672234"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{ $json.ts }}",
+            "nome": "={{ $json.nome }}",
+            "tipo": "={{ $json.tipo }}",
+            "telefone_norm": "={{ $json.telefone_norm }}",
+            "email_norm": "={{ $json.email_norm }}",
+            "orcamento_num": "={{ $json.orcamento }}",
+            "bairros_list": "={{ $json.bairros_list }}",
+            "mensagem": "={{ $json.mensagem }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefone_norm",
+              "displayName": "telefone_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "orcamento_num",
+              "displayName": "orcamento_num",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "bairros_list",
+              "displayName": "bairros_list",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "bbc451c0-7f19-42c8-a986-2713e6a7b179",
+      "name": "Append Leads_Normalized_V1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Inbox_V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status_processamento": "concluido",
+            "ts": "={{ $json.ts }}"
+          },
+          "matchingColumns": [
+            "ts"
+          ],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "orcamento",
+              "displayName": "orcamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "bairros",
+              "displayName": "bairros",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2f7cc750-0c22-4359-80b4-4ceea47d544c",
+      "name": "Update Inbox → concluido",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        240,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "erro",
+              "value": "email_invalido"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4f6cb969-c174-4df1-a5b3-a0b0f07a1ebc",
+      "name": "Set erro email_invalido",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -848,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "erro",
+              "value": "telefone_invalido"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9a6ebf29-9d48-417b-9ce6-68e736c24bd4",
+      "name": "Set erro telefone_invalido",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "erro",
+              "value": "campos_obrigatorios"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c13d7719-6c30-45fe-b018-2c8e67e155bd",
+      "name": "Set erro campos_obrigatorios",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1126231956,
+          "mode": "list",
+          "cachedResultName": "Leads_Log_V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit#gid=1126231956"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{ $json.ts }}",
+            "email_norm": "={{ $json.email_norm }}",
+            "erros": "={{ $json.erro }}",
+            "input_snapshot": "{{ JSON.stringify($json) }}",
+            "fase": "V1_guardrails"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "input_snapshot",
+              "displayName": "input_snapshot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "erros",
+              "displayName": "erros",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fase",
+              "displayName": "fase",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "4a85e30b-78e2-412e-b05e-ede503aff9da",
+      "name": "Append Leads_Log_V1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -384,
+        544
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Inbox_V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1f2W6wBdOyy8LgJ56D63_aK-Oyi1gusDjA3IXagqd20E/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{ $json.ts }}",
+            "status_processamento": "={{\n  \"Erro (\" + ($json[\"erro\"] || \"desconhecido\") + \")\"\n}}"
+          },
+          "matchingColumns": [
+            "ts"
+          ],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "orcamento",
+              "displayName": "orcamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "bairros",
+              "displayName": "bairros",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "fe484f1f-5224-4f22-b64a-5bb6dd9545ed",
+      "name": "Update Inbox → erro",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -688,
+        544
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Leads_Inbox_V1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Leads_Inbox_V1": {
+      "main": [
+        [
+          {
+            "node": "IF status == novo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF status == novo": {
+      "main": [
+        [
+          {
+            "node": "Set Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Normalize": {
+      "main": [
+        [
+          {
+            "node": "IF email válido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF email válido": {
+      "main": [
+        [
+          {
+            "node": "IF telefone 10-11 dígitos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set erro email_invalido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF telefone 10-11 dígitos": {
+      "main": [
+        [
+          {
+            "node": "IF obrigatórios ok",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set erro telefone_invalido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF obrigatórios ok": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Normalized_V1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set erro campos_obrigatorios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Leads_Normalized_V1": {
+      "main": [
+        [
+          {
+            "node": "Update Inbox → concluido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set erro email_invalido": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Log_V1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Inbox → erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set erro telefone_invalido": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Log_V1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Inbox → erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set erro campos_obrigatorios": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Log_V1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Inbox → erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Leads_Log_V1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "41053e00-cb36-4bb1-80f0-d3fb7ab52667",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"
+  },
+  "id": "migHPrlaleD8pjqg",
+  "tags": []
+}

@@ -1,0 +1,5 @@
+ts,nome,email,telefone,tipo,orcamento,bairros,mensagem,status_processamento
+2025-09-04T02:47:01.575796,Rafael Lima,rafael@ex.com,11 99999-9999,alugar,4200,"Vila Mariana, Paraíso","Alugar 2 quartos, vaga; mudo semana que vem.",novo
+2025-09-04T02:47:02.575805,Ana Souza,ana@ex.com,11 98888-7777,alugar,,,Só pesquisando valores e regiões.,novo
+2025-09-04T02:47:03.575807,Bruno Alves,bruno#ex.com,11 91234-5678,comprar,300000,Moema,2 dormitórios.,novo
+2025-09-04T02:47:04.575808,Eduardo K.,eduardo@ex.com,12345,alugar,2000,Santana,Sem pressa.,novo

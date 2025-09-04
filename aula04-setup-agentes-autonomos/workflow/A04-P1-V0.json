@@ -1,0 +1,475 @@
+{
+  "name": "Builder AI - 5A - Aula 04 - V0",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f27a2da5-b495-4d39-8bbf-d459566dc433",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Inbox_V0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "7f408540-e630-4f37-917e-f5ebddb74194",
+      "name": "Read Leads_Inbox_V0",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        304,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "9f5f1f1f-f148-43d4-a9af-dea931f3d844",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d6e1a4da-dbf8-4a6e-800d-1762e65d0a53",
+      "name": "IF status == novo",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        592,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "email_norm",
+              "value": "={{ ($json.email || \"\").trim().toLowerCase() }}"
+            },
+            {
+              "name": "telefone_norm",
+              "value": "={{ String($json.telefone || \"\").replace(/\\D/g,\"\") }}"
+            },
+            {
+              "name": "bairros_list",
+              "value": "={{ Array.isArray($json.bairros) ? $json.bairros : String($json.bairros||\"\").split(\",\").map(b=>b.trim()).filter(Boolean) }}"
+            },
+            {
+              "name": "nome",
+              "value": "={{$json.nome}}"
+            },
+            {
+              "name": "tipo",
+              "value": "={{$json.tipo}}"
+            },
+            {
+              "name": "mensagem",
+              "value": "={{$json.mensagem}}"
+            },
+            {
+              "name": "ts",
+              "value": "={{$json.ts || new Date().toISOString()}}"
+            }
+          ],
+          "number": [
+            {
+              "name": "orcamento_num",
+              "value": "={{\n  $json.orcamento !== undefined\n  && String($json.orcamento).trim() !== ''\n  && !isNaN(Number($json.orcamento))\n    ? Number($json.orcamento)\n    : null\n}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5cc08591-d7c2-4927-b219-22d6593722a2",
+      "name": "Set Normalize",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        864,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1526849844,
+          "mode": "list",
+          "cachedResultName": "Leads_Normalized_V0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit#gid=1526849844"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{$json[\"ts\"]}}",
+            "nome": "={{ $json.nome }}",
+            "email_norm": "={{ $json.email }}",
+            "telefone_norm": "={{ $json.telefone_norm }}",
+            "tipo": "={{ $json.tipo }}",
+            "orcamento_num": "={{ $json.orcamento_num }}",
+            "bairros_list": "={{ $json.bairros_list }}",
+            "mensagem": "={{ $json.mensagem }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefone_norm",
+              "displayName": "telefone_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "orcamento_num",
+              "displayName": "orcamento_num",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "bairros_list",
+              "displayName": "bairros_list",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "b044d603-c8f4-477f-98a6-ca3cb456acaa",
+      "name": "Append Leads_Normalized_V0",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1152,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Inbox_V0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status_processamento": "concluído",
+            "ts": "={{ $json.ts }}"
+          },
+          "matchingColumns": [
+            "ts"
+          ],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "orcamento",
+              "displayName": "orcamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "bairros",
+              "displayName": "bairros",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "557fc035-4867-437c-9ee8-4af23ad88a6d",
+      "name": "Update Inbox status → concluido",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1424,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Leads_Inbox_V0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Leads_Inbox_V0": {
+      "main": [
+        [
+          {
+            "node": "IF status == novo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF status == novo": {
+      "main": [
+        [
+          {
+            "node": "Set Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Normalize": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Normalized_V0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Leads_Normalized_V0": {
+      "main": [
+        [
+          {
+            "node": "Update Inbox status → concluido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "092d1c34-d45c-49b6-af71-ced323dd587d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"
+  },
+  "id": "eNTWFmBFbIRn902q",
+  "tags": []
+}

@@ -1,0 +1,8 @@
+ts,nome,email,telefone,tipo,orcamento,bairros,mensagem,status_processamento
+2025-09-04T02:04:44.994797,Rafael Lima,rafael@ex.com,11 99999-9999,alugar,4200,"Vila Mariana, Paraíso","Alugar 2 quartos, vaga; mudo semana que vem.",novo
+2025-09-04T02:04:45.994804,Ana Souza,ana@ex.com,11 98888-7777,alugar,,,Só pesquisando valores e regiões.,novo
+2025-09-04T02:04:46.994806,Bruno Alves,bruno#ex.com,11 91234-5678,comprar,300000,Moema,2 dormitórios.,novo
+2025-09-04T02:04:47.994807,Luiza Prado,luiza@ex.com,11 97777-6666,alugar,900,Aclimação,Kitnet barata.,novo
+2025-09-04T02:04:48.994809,Marina P.,  MARINA@EX.COM  ,(11) 95555-4444,comprar,750000,Pinheiros,Interesse imediato se for perto do metrô.,novo
+2025-09-04T02:04:49.994810,Eduardo K.,eduardo@ex.com,12345,alugar,2000,Santana,Sem pressa.,novo
+2025-09-04T02:04:50.994812,Patrícia M.,patricia@ex.com,11 93333-2222,alugar,quatro mil,Vila Madalena,Texto livre; orçamento em texto.,novo
