@@ -1,0 +1,5 @@
+ts,nome,email_norm,telefone_norm,tipo,orcamento_num,bairros_list,mensagem
+2025-09-04T14:35:16.772391,Rafael Lima,rafael@ex.com,11999999999,alugar,4200,"[""Vila Mariana"",""Paraíso""]","Alugar 2 quartos, vaga; mudo semana que vem."
+2025-09-04T14:35:17.772407,Ana Souza,ana@ex.com,11988887777,alugar,,[],Só pesquisando valores e regiões.
+2025-09-04T14:35:18.772409,Bruno Alves,bruno@ex.com,11912345678,comprar,300000,"[""Moema""]",2 dormitórios. Interesse se for perto do metrô.
+2025-09-04T14:35:19.772411,Luiza Prado,luiza@ex.com,11977776666,alugar,1500,"[""Aclimação""]","Kitnet barata, posso esperar."

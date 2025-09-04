@@ -1,0 +1,1217 @@
+{
+  "name": "Builder AI - 5A - Aula 04 - V02",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d3e70296-a1fb-4bfb-8cd7-d6c2262fe627",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2352,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Normalized_V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "3d9e88b2-5880-43b3-9b30-0497741863dc",
+      "name": "Read Leads_Normalized_V2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -2128,
+        368
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json.classificacao || \"__erro__\"}}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "quente"
+            },
+            {
+              "value2": "morno"
+            },
+            {
+              "value2": "frio"
+            },
+            {
+              "value2": "__erro__"
+            }
+          ]
+        }
+      },
+      "id": "75c3fe97-4c92-4be9-8a98-83f2cc9c1e2c",
+      "name": "Switch classificação",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "rota_destino",
+              "value": "crm_alta"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f708a08a-8b2c-43f8-b700-d721b83f1882",
+      "name": "Set rota (quente)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "rota_destino",
+              "value": "crm_normal"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f8a40bf4-4dee-4352-89e8-ca4768f2f67f",
+      "name": "Set rota (morno)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "rota_destino",
+              "value": "nutricao"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bb9f618c-9bec-4480-a172-8b2e26ed72d7",
+      "name": "Set rota (frio)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "rota_destino",
+              "value": "revisao"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c20d057d-8886-4890-acd8-ac192cd3f22c",
+      "name": "Set rota (__erro__)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1519277655,
+          "mode": "list",
+          "cachedResultName": "Leads_Routing_V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=1519277655"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{$json.ts || new Date().toISOString()}}",
+            "email_norm": "={{$json.email_norm}}",
+            "classificacao": "={{$json.classificacao}}",
+            "motivo": "={{$json.motivo}}",
+            "faltantes": "={{ $json.faltantes ? (typeof $json.faltantes === 'string' ? $json.faltantes : JSON.stringify($json.faltantes)) : '[]' }}",
+            "rota_destino": "={{$json.rota_destino}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "classificacao",
+              "displayName": "classificacao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "motivo",
+              "displayName": "motivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "faltantes",
+              "displayName": "faltantes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rota_destino",
+              "displayName": "rota_destino",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "cfb513ad-fc43-4c33-b03b-1b7705c18efa",
+      "name": "Append Leads_Routing_V2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -656,
+        128
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 502254839,
+          "mode": "list",
+          "cachedResultName": "Leads_Log_V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=502254839"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{$json.ts || new Date().toISOString()}}",
+            "email_norm": "={{$json.email_norm || $item(0, 'Read Leads_Normalized_V2').$json.email_norm}}",
+            "input_snapshot": "={{ JSON.stringify($json) }}",
+            "decisao_llm": "={{ JSON.stringify({     classificacao: $json.classificacao,     motivo: $json.motivo,     faltantes: (typeof $json.faltantes === 'string' ? JSON.parse($json.faltantes || '[]') : ($json.faltantes || [])) }) }}",
+            "erro_schema": "={{ true }}",
+            "fase": "V2_llm"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "input_snapshot",
+              "displayName": "input_snapshot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "decisao_llm",
+              "displayName": "decisao_llm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "erro_schema",
+              "displayName": "erro_schema",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fase",
+              "displayName": "fase",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "babd236c-8ed7-4a8a-9ccc-1b61405492d1",
+      "name": "Append Leads_Log_V2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -656,
+        704
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Normalized_V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status_processamento": "concluido (quente)",
+            "ts": "={{ $json.ts }}"
+          },
+          "matchingColumns": [
+            "ts"
+          ],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "telefone_norm",
+              "displayName": "telefone_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "orcamento_num",
+              "displayName": "orcamento_num",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "bairros_list",
+              "displayName": "bairros_list",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "539b608a-b9a1-4d61-ab4a-f50b97c7946d",
+      "name": "Update Status (quente)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -656,
+        -64
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Normalized_V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{ $json.ts }}",
+            "status_processamento": "concluido (morno)"
+          },
+          "matchingColumns": [
+            "ts"
+          ],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "telefone_norm",
+              "displayName": "telefone_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "orcamento_num",
+              "displayName": "orcamento_num",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "bairros_list",
+              "displayName": "bairros_list",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "55120072-c5d7-488d-8628-d6c8f371cab5",
+      "name": "Update Status (morno)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -656,
+        320
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Normalized_V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{ $json.ts }}",
+            "status_processamento": "concluido (frio)"
+          },
+          "matchingColumns": [
+            "ts"
+          ],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "telefone_norm",
+              "displayName": "telefone_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "orcamento_num",
+              "displayName": "orcamento_num",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "bairros_list",
+              "displayName": "bairros_list",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "78219822-f3d8-4ec5-91e4-ab5430e54c54",
+      "name": "Update Status (frio)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -656,
+        512
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+          "mode": "list",
+          "cachedResultName": "A04-P1-V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_Normalized_V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "{{ $json.ts }}",
+            "status_processamento": "erro"
+          },
+          "matchingColumns": [
+            "ts"
+          ],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email_norm",
+              "displayName": "email_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "telefone_norm",
+              "displayName": "telefone_norm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "orcamento_num",
+              "displayName": "orcamento_num",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "bairros_list",
+              "displayName": "bairros_list",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "d9d521b3-72cf-4b71-8130-241b5854b8a7",
+      "name": "Update Status (erro)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -656,
+        896
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fOadNESym2mNypnS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-1.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-1.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=[ROLE]\nVocê é um agente de qualificação de leads imobiliários.\n\n[OBJECTIVE]\nClassificar o lead em: \"quente\", \"morno\" ou \"frio\" e explicar o motivo.\nRetorne SOMENTE JSON no schema:\n{\"classificacao\":\"quente|morno|frio\",\"motivo\":\"string\",\"faltantes\":[]}\nNÃO use blocos de código (sem ```), a saída deve iniciar com { e terminar com }.\n\n[RUBRICA (SIGA À RISCA)]\n1) QUENTE quando:\n   - tipo == \"alugar\" AND orcamento_num >= 3500 AND (bairros_list.length > 0 OR mensagem contém \"mudo\"|\"mudança\"|\"mudar\"),\n   OU\n   - tipo == \"comprar\" AND orcamento_num >= 300000 AND bairros_list.length > 0.\n2) FRIO quando:\n   - mensagem indica baixa intenção (\"só pesquisando\", \"apenas pesquisando\", \"vendo opções\") OU\n   - orcamento_num está ausente/vazio E NÃO há sinais claros de intenção.\n3) MORNO nos demais casos (há interesse, mas faltam dados ou sinais fortes).\n4) Sempre preencha \"faltantes\" com campos críticos ausentes entre: [\"orcamento_num\",\"tipo\",\"bairros_list\",\"telefone_norm\",\"email_norm\",\"mensagem\"].\n5) Nunca invente valores faltantes.\n\n[EXEMPLOS (formato de raciocínio → saída)]\nEx1 (alugar, 4200, bairros, \"mudo semana que vem\") → {\"classificacao\":\"quente\",\"motivo\":\"intenção imediata + orçamento compatível + bairros informados\",\"faltantes\":[]}\nEx2 (\"só pesquisando\", sem orçamento) → {\"classificacao\":\"frio\",\"motivo\":\"baixa intenção e sem orçamento\",\"faltantes\":[\"orcamento_num\"]}\nEx3 (comprar, 280000, 1 bairro) → {\"classificacao\":\"morno\",\"motivo\":\"interesse de compra com orçamento abaixo do limiar quente\",\"faltantes\":[]}\n\n[INPUT]\nClassifique o lead abaixo seguindo a RUBRICA. Responda apenas o JSON.\n\nLEAD:\n{{ JSON.stringify($json) }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1904,
+        304
+      ],
+      "id": "78a1717e-f575-425d-9ad5-74a4d86e1b24",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "eXIOrdb24GS48pYC",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fceb4677-08c1-43dc-ac45-0734ad72dc53",
+              "name": "classificacao",
+              "value": "={{\n  (() => {\n    const t = $json.content?.parts?.[0]?.text ?? '';\n    const cleaned = String(t)\n      .replace(/^```json\\s*/i,'')\n      .replace(/^```\\s*/,'')\n      .replace(/```$/,'')\n      .trim();\n    try { return JSON.parse(cleaned).classificacao || \"__erro__\"; }\n    catch(e){ return \"__erro__\"; }\n  })()\n}}",
+              "type": "string"
+            },
+            {
+              "id": "0c725ef9-069f-4cc6-9068-f8dc6f8c5e51",
+              "name": "motivo",
+              "value": "={{\n  (() => {\n    const t = $json.content?.parts?.[0]?.text ?? '';\n    const cleaned = String(t)\n      .replace(/^```json\\s*/i,'')\n      .replace(/^```\\s*/,'')\n      .replace(/```$/,'')\n      .trim();\n    try { return JSON.parse(cleaned).motivo || \"\"; }\n    catch(e){ return \"\"; }\n  })()\n}}",
+              "type": "string"
+            },
+            {
+              "id": "a597ad8b-1e50-4f9f-a1cc-406b57b8d793",
+              "name": "faltantes",
+              "value": "={{\n  (() => {\n    const t = $json.content?.parts?.[0]?.text ?? '';\n    const cleaned = String(t)\n      .replace(/^```json\\s*/i,'')\n      .replace(/^```\\s*/,'')\n      .replace(/```$/,'')\n      .trim();\n    try {\n      const a = JSON.parse(cleaned).faltantes;\n      return Array.isArray(a) ? JSON.stringify(a) : \"[]\";\n    } catch(e){ return \"[]\"; }\n  })()\n}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1552,
+        304
+      ],
+      "id": "da6cae1a-7277-48d5-b094-dcb4b73f2c34",
+      "name": "Parse LLM JSON"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1328,
+        368
+      ],
+      "id": "56697f19-7653-439a-b456-a3859c52543f",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Leads_Normalized_V2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set rota (quente)": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Routing_V2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Status (quente)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set rota (morno)": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Routing_V2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Status (morno)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set rota (frio)": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Routing_V2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Status (frio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set rota (__erro__)": {
+      "main": [
+        [
+          {
+            "node": "Append Leads_Log_V2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Status (erro)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Leads_Normalized_V2": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Parse LLM JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse LLM JSON": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch classificação": {
+      "main": [
+        [
+          {
+            "node": "Set rota (quente)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set rota (morno)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set rota (frio)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set rota (__erro__)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Switch classificação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "86fb8a26-08d0-48c3-b12c-2ad978511de7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"
+  },
+  "id": "1gl1lEjQlzNc9e20",
+  "tags": []
+}
