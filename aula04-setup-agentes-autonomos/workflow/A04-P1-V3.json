@@ -79,7 +79,7 @@
       "typeVersion": 2,
       "position": [
         -560,
-        -8
+        -16
       ]
     },
     {
@@ -1212,9 +1212,9 @@
       "parameters": {
         "modelId": {
           "__rl": true,
-          "value": "models/gemini-1.5-flash",
+          "value": "models/gemini-2.5-flash-lite",
           "mode": "list",
-          "cachedResultName": "models/gemini-1.5-flash"
+          "cachedResultName": "models/gemini-2.5-flash-lite"
         },
         "messages": {
           "values": [
@@ -1230,7 +1230,7 @@
       "typeVersion": 1,
       "position": [
         -912,
-        -8
+        -16
       ],
       "id": "bd04fc08-d80c-4b37-a198-db256b5177c9",
       "name": "Message a model",
@@ -1435,7 +1435,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "7064326a-34d8-4dc0-93ed-4b48621ac20a",
+  "versionId": "0fe47890-a83a-41ab-a9d9-7586fb866bc8",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"
