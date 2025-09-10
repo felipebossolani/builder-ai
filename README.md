@@ -18,7 +18,7 @@ No futuro, novas aulas serão adicionadas em pastas próprias seguindo o mesmo p
 
 ### Documentação da Aula 04
 
-Confira o [README da pasta `aula04-setup-agentes-autonomos`](./aula04-setup-agentes-autonomos/README.md) para instruções detalhadas sobre a configuração dos agentes, exemplos de uso e dicas para executar os fluxos localmente.
+Confira o [README da pasta da aula 04](./aula04-setup-agentes-autonomos/workflow/README.md) para instruções detalhadas sobre a configuração dos agentes, exemplos de uso e dicas para executar os fluxos localmente.
 
 
 ---
