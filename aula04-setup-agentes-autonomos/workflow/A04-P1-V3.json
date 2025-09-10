@@ -14,24 +14,12 @@
     },
     {
       "parameters": {
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=0"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Normalized_V3",
         "options": {}
       },
       "id": "0f060a96-68aa-4247-9834-fec0ddffbb18",
-      "name": "Read Leads_Normalized_V2",
+      "name": "Read Leads_Normalized_V3",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
@@ -63,11 +51,11 @@
             },
             {
               "name": "ts",
-              "value": "={{$item(0, 'Read Leads_Normalized_V2').$json.ts}}"
+              "value": "={{$item(0, 'Read Leads_Normalized_V3').$json.ts}}"
             },
             {
               "name": "email_norm",
-              "value": "={{$item(0, 'Read Leads_Normalized_V2').$json.email_norm}}"
+              "value": "={{$item(0, 'Read Leads_Normalized_V3').$json.email_norm}}"
             }
           ]
         },
@@ -203,20 +191,8 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 784088697,
-          "mode": "list",
-          "cachedResultName": "Leads_CRM_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=784088697"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_CRM_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -307,20 +283,8 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 1497541620,
-          "mode": "list",
-          "cachedResultName": "Leads_Nutricao_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=1497541620"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Nutricao_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -411,20 +375,8 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 275817334,
-          "mode": "list",
-          "cachedResultName": "Leads_Frios_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=275817334"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Frios_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -515,20 +467,8 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 502254839,
-          "mode": "list",
-          "cachedResultName": "Leads_Log_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=502254839"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Log_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -619,20 +559,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=0"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Normalized_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -767,20 +695,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=0"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Normalized_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -915,20 +831,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=0"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Normalized_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -1063,20 +967,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V3",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit#gid=0"
-        },
+        "documentId": "1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE",
+        "sheetName": "Leads_Normalized_V3",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -1255,6 +1147,22 @@
       ],
       "id": "c625bdff-e747-46a0-b183-343c3e7f5e49",
       "name": "Merge"
+    },
+    {
+      "parameters": {
+        "content": "##### **V3:** Guardrails mais fortes + prompts bem estruturados (role, rubric, schema fixo).\n[Planilha](https://docs.google.com/spreadsheets/d/1zGMR8eHAPJREjFUFBq-X9bv6-pKUATJVWxP_NAGqZlE/edit?gid=0#gid=0)",
+        "height": 80,
+        "width": 512,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1344,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "4423dcf0-c98a-4df9-99d6-ba476bd6c113",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -1435,7 +1343,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "0fe47890-a83a-41ab-a9d9-7586fb866bc8",
+  "versionId": "666ff166-4217-4b58-887f-88beef4078f3",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"

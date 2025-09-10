@@ -14,20 +14,8 @@
     },
     {
       "parameters": {
-        "documentId": {
-          "__rl": true,
-          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
-        },
+        "documentId": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+        "sheetName": "Leads_Normalized_V2",
         "options": {}
       },
       "id": "3d9e88b2-5880-43b3-9b30-0497741863dc",
@@ -162,20 +150,8 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 1519277655,
-          "mode": "list",
-          "cachedResultName": "Leads_Routing_V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=1519277655"
-        },
+        "documentId": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+        "sheetName": "Leads_Routing_V2",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -266,20 +242,8 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 502254839,
-          "mode": "list",
-          "cachedResultName": "Leads_Log_V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=502254839"
-        },
+        "documentId": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+        "sheetName": "Leads_Log_V2",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -371,20 +335,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
-        },
+        "documentId": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+        "sheetName": "Leads_Normalized_V2",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -519,20 +471,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
-        },
+        "documentId": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+        "sheetName": "Leads_Normalized_V2",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -667,20 +607,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
-        },
+        "documentId": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+        "sheetName": "Leads_Normalized_V2",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -815,20 +743,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit#gid=0"
-        },
+        "documentId": "1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y",
+        "sheetName": "Leads_Normalized_V2",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -1042,6 +958,22 @@
       ],
       "id": "56697f19-7653-439a-b456-a3859c52543f",
       "name": "Merge"
+    },
+    {
+      "parameters": {
+        "content": "##### **V2:** Introdução do LLM para classificar (frio/morno/quente).\n[Planilha](https://docs.google.com/spreadsheets/d/1cY2FZAOX5w5GSVIdPRb2HSAFRjhbONinpiY8oITuC_Y/edit?gid=0#gid=0)",
+        "height": 80,
+        "width": 512,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2336,
+        592
+      ],
+      "typeVersion": 1,
+      "id": "dea72056-61a6-4eeb-adda-d11dcd2c7bd0",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -1207,7 +1139,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "3ddedb01-608f-4c1e-8bea-7a04d9b64166",
+  "versionId": "ccca31b9-994f-4081-bdd4-60c31d92f8f9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"

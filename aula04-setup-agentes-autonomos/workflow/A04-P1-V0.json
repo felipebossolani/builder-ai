@@ -1,5 +1,5 @@
 {
-  "name": "Builder AI - 5A - Aula 04 - V0",
+  "name": "Builder AI - 5A - Aula 04 - V00",
   "nodes": [
     {
       "parameters": {},
@@ -14,20 +14,8 @@
     },
     {
       "parameters": {
-        "documentId": {
-          "__rl": true,
-          "value": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Inbox_V0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit#gid=0"
-        },
+        "documentId": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
+        "sheetName": "Leads_Inbox_V0",
         "options": {}
       },
       "id": "7f408540-e630-4f37-917e-f5ebddb74194",
@@ -133,20 +121,8 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 1526849844,
-          "mode": "list",
-          "cachedResultName": "Leads_Normalized_V0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit#gid=1526849844"
-        },
+        "documentId": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
+        "sheetName": "Leads_Normalized_V0",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -257,20 +233,8 @@
     {
       "parameters": {
         "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
-          "mode": "list",
-          "cachedResultName": "A04-P1-V0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Leads_Inbox_V0",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit#gid=0"
-        },
+        "documentId": "1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec",
+        "sheetName": "Leads_Inbox_V0",
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -401,6 +365,22 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "##### **V0:** Normalização simples de dados (sheets, limpeza).\n[Planilha](https://docs.google.com/spreadsheets/d/1BEJz3vZLbYfgKuflpOO86epBRFgGYjhjTcGErMVI-Ec/edit?gid=0#gid=0)",
+        "height": 80,
+        "width": 448,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        32,
+        192
+      ],
+      "typeVersion": 1,
+      "id": "b903c607-57d6-4b97-97cf-0278f36fcd20",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -465,7 +445,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "5edb1d22-1b94-4e9a-ac56-0dd499d36a29",
+  "versionId": "982faa70-6c25-4262-83b8-eefcc4062dcf",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8a8f331617ca73107399211589b25bbdd7e71d11fa1d2c69bce3ea7838ecc8e6"
