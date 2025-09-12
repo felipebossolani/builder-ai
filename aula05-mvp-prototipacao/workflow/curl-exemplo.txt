@@ -1,3 +1,4 @@
+--teste
 curl -X POST "https://workshop-5-5a.app.n8n.cloud/webhook-test/lead" \
   -H "Content-Type: application/json" \
   -d '{
@@ -10,7 +11,7 @@ curl -X POST "https://workshop-5-5a.app.n8n.cloud/webhook-test/lead" \
     "mensagem":"Quero um orçamento detalhado."
   }'
 
-
+--prod
 curl -X POST "https://workshop-5-5a.app.n8n.cloud/webhook/lead" \
   -H "Content-Type: application/json" \
   -d '{
