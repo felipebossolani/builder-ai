@@ -1,0 +1,132 @@
+{
+  "name": "Builder AI - 5A - MVP / Prototipação - V01",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead",
+        "options": {}
+      },
+      "id": "Webhook_Lead",
+      "name": "Webhook Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "webhook-lead"
+    },
+    {
+      "parameters": {
+        "functionCode": "const d = items[0].json;\nif (typeof d.bairros_list === 'string') {\n  d.bairros_list = d.bairros_list.split(',').map(s => s.trim()).filter(Boolean);\n}\nreturn items;"
+      },
+      "id": "Function_ParseBairros",
+      "name": "Normaliza bairros_list",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [],
+          "string": [
+            {
+              "value1": "={{$json[\"nome\"]}}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{$json[\"email\"]}}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{$json[\"telefone\"]}}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{$json[\"tipo\"]}}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{$json[\"orcamento\"]}}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{$json[\"mensagem\"]}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "If_Validacao",
+      "name": "Valida Campos",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "options": {},
+        "responseBody": "={\n  \"ok\": true,\n  \"received\": {\n    \"nome\": \"{{$json[\"nome\"]}}\",\n    \"email\": \"{{$json[\"email\"]}}\",\n    \"telefone\": \"{{$json[\"telefone\"]}}\",\n    \"tipo\": \"{{$json[\"tipo\"]}}\",\n    \"orcamento\": \"{{$json[\"orcamento\"]}}\",\n    \"bairros_list\": {{$json[\"bairros_list\"]}},\n    \"mensagem\": \"{{$json[\"mensagem\"]}}\"\n  }\n}",
+        "responseCode": 200
+      },
+      "id": "Respond_OK",
+      "name": "Resposta OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1000, 180]
+    },
+    {
+      "parameters": {
+        "options": {},
+        "responseBody": "{\n  \"ok\": false,\n  \"error\": \"Campos obrigatórios ausentes\",\n  \"required\": [\"nome\",\"email\",\"telefone\",\"tipo\",\"orcamento\",\"mensagem\"]\n}",
+        "responseCode": 400
+      },
+      "id": "Respond_Error",
+      "name": "Resposta Erro",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1000, 420]
+    }
+  ],
+  "connections": {
+    "Webhook Lead": {
+      "main": [
+        [
+          {
+            "node": "Normaliza bairros_list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normaliza bairros_list": {
+      "main": [
+        [
+          {
+            "node": "Valida Campos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valida Campos": {
+      "main": [
+        [
+          {
+            "node": "Resposta OK",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Resposta Erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

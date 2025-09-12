@@ -1,0 +1,24 @@
+curl -X POST "https://workshop-5-5a.app.n8n.cloud/webhook-test/lead" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome":"Felipe Bossolani",
+    "email":"felipe@exemplo.com",
+    "telefone":"+55 11 99999-0000",
+    "tipo":"residencial",
+    "orcamento":"5000",
+    "bairros_list":"Moema, Vila Mariana",
+    "mensagem":"Quero um orçamento detalhado."
+  }'
+
+
+curl -X POST "https://workshop-5-5a.app.n8n.cloud/webhook/lead" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome":"Felipe Bossolani",
+    "email":"felipe@exemplo.com",
+    "telefone":"+55 11 99999-0000",
+    "tipo":"residencial",
+    "orcamento":"5000",
+    "bairros_list":"Moema, Vila Mariana",
+    "mensagem":"Quero um orçamento detalhado."
+  }'

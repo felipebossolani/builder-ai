@@ -1,0 +1,46 @@
+Role: Você é um construtor de apps no Lovable.
+Objective: Criar uma página “Lead Imobiliário” com um formulário que envia os dados via HTTP POST (JSON) para um webhook do n8n.
+Inputs/Fields (todos obrigatórios):
+	•	nome (texto curto)
+	•	email (email)
+	•	telefone (texto curto)
+	•	tipo (dropdown, opções fixas: “alugar”, “comprar”)
+	•	orcamento (somente números, sem separadores — validar)
+	•	bairros_list (dropdown multisseleção; 10 bairros de SP: Pinheiros, Vila Madalena, Moema, Itaim Bibi, Jardins, Brooklin, Morumbi, Tatuapé, Perdizes, Bela Vista)
+	•	mensagem (texto longo, mínimo 10 caracteres)
+UI:
+	•	Título: “Quero um imóvel em São Paulo”
+	•	Botão principal: “Enviar”
+	•	Exibir mensagens de erro em vermelho abaixo de cada campo quando inválido.
+Validações:
+	•	email: formato de e-mail válido
+	•	telefone: aceitar “+55” opcional e 10–11 dígitos (permitir “( ) -” e espaços, mas validar dígitos)
+	•	orcamento: bloquear qualquer caractere não numérico; enviar número como inteiro no JSON
+	•	bairros_list: exigir ao menos 1 bairro selecionado
+	•	mensagem: mínimo 10 caracteres
+Envio (HTTP):
+	•	Método: POST
+	•	URL: https://SEU_DOMINIO_DO_N8N/webhook/lead (substituir pela sua)
+	•	Headers: Content-Type: application/json
+	•	Body (JSON) exato:
+{
+“nome”: “”,
+“email”: “”,
+“telefone”: “”,
+“tipo”: “<alugar_ou_comprar>”,
+“orcamento”: <numero_inteiro>,
+“bairros_list”: [””, “”, “…”],
+“mensagem”: “”
+}
+Comportamento de sucesso/erro:
+	•	Sucesso (HTTP 2xx): limpar formulário e mostrar alerta “Recebemos seu pedido! Em breve entraremos em contato.”
+	•	Erro (outros status): manter dados, mostrar alerta “Não foi possível enviar agora. Tente novamente.”
+Acessibilidade e UX:
+	•	Labels claros em português, placeholders objetivos
+	•	Marcar campos obrigatórios com “*”
+	•	Desativar botão “Enviar” enquanto houver validações pendentes
+	•	Loading no envio
+Restrições:
+	•	Texto da interface em português
+	•	Layout minimalista e responsivo
+	•	Não usar bibliotecas externas além do padrão do Lovable
