@@ -1,0 +1,317 @@
+{
+  "name": "Builder AI - 5A - Lovable",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "5fcdc335-09fd-40c7-9334-e10553eff0db",
+      "name": "Webhook Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -848,
+        -144
+      ],
+      "webhookId": "webhook-lead"
+    },
+    {
+      "parameters": {
+        "functionCode": "const d = items[0].json;\nif (typeof d.bairros_list === 'string') {\n  d.bairros_list = d.bairros_list.split(',').map(s => s.trim()).filter(Boolean);\n}\nreturn items;"
+      },
+      "id": "507bac4f-f481-44c0-947a-0dc11741ed02",
+      "name": "Normaliza bairros_list",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [],
+          "string": [
+            {
+              "value1": "={{ $json.body.nome }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.body.email }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.body.telefone }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.body.tipo }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.body.orcamento }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.body.mensagem }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "53c01a5a-5c18-4495-9fe2-c95ff6dbeab6",
+      "name": "Valida Campos",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "86a4e273-de1d-4c60-914e-c36763704de6",
+      "name": "Resposta OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "ada8ca2d-5ce3-4d9b-beaa-5d9f5da338e6",
+      "name": "Resposta Erro",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1NMQgeTDwucQiAWJWUJ2eWpPIjwcZ-XXdDisAXpzlEnQ",
+          "mode": "list",
+          "cachedResultName": "A05-V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NMQgeTDwucQiAWJWUJ2eWpPIjwcZ-XXdDisAXpzlEnQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NMQgeTDwucQiAWJWUJ2eWpPIjwcZ-XXdDisAXpzlEnQ/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nome": "={{ $json.body.nome }}",
+            "telefone": "={{ $json.body.telefone }}",
+            "email": "={{ $json.body.email }}",
+            "tipo": "={{ $json.body.tipo }}",
+            "orcamento": "={{ $json.body.orcamento }}",
+            "bairros_list": "={{ $json.body.bairros_list }}",
+            "mensagem": "={{ $json.body.mensagem }}",
+            "status_processamento": "novo",
+            "ts": "={{ $now }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ts",
+              "displayName": "ts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "orcamento",
+              "displayName": "orcamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "bairros_list",
+              "displayName": "bairros_list",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status_processamento",
+              "displayName": "status_processamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        48,
+        -240
+      ],
+      "id": "19c3910e-b339-4e4e-be35-2ee1a35b4dc6",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "khlCCHHZseU9yVlG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Webhook para leads\n[Planilha](https://docs.google.com/spreadsheets/d/1NMQgeTDwucQiAWJWUJ2eWpPIjwcZ-XXdDisAXpzlEnQ/edit?gid=0#gid=0)",
+        "height": 80,
+        "width": 336,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -816,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "8d4181b7-e4b6-4525-89c2-a5b13d9548d1",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Lead": {
+      "main": [
+        [
+          {
+            "node": "Normaliza bairros_list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normaliza bairros_list": {
+      "main": [
+        [
+          {
+            "node": "Valida Campos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valida Campos": {
+      "main": [
+        [
+          {
+            "node": "Resposta OK",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Resposta Erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resposta OK": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "85397a0d-cfb9-48bd-8355-ee25550ab59b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "18f6db3cd438969cbcdf268046cb4bbd3e03f8d00b39761a3068f902bd33a5e0"
+  },
+  "id": "06JKTZFHEVFadGNf",
+  "tags": []
+}

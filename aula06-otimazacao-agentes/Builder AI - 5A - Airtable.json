@@ -1,0 +1,591 @@
+{
+  "name": "Builder AI - 5A - Airtable",
+  "nodes": [
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "nome",
+              "value": "={{$json[\"fields\"][\"Nome\"]}}"
+            },
+            {
+              "name": "email",
+              "value": "={{$json[\"fields\"][\"Email\"]}}"
+            },
+            {
+              "name": "telefone",
+              "value": "={{$json[\"fields\"][\"Telefone\"]}}"
+            },
+            {
+              "name": "cidade",
+              "value": "={{$json[\"fields\"][\"Cidade\"]}}"
+            },
+            {
+              "name": "estado",
+              "value": "={{$json[\"fields\"][\"Estado\"]}}"
+            },
+            {
+              "name": "status",
+              "value": "={{$json[\"fields\"][\"Status\"]}}"
+            },
+            {
+              "name": "fase",
+              "value": "airtable_trigger"
+            },
+            {
+              "name": "ultima_atualizacao",
+              "value": "={{ $json.fields.ultima_atualizacao }}"
+            },
+            {
+              "name": "id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1413d164-8184-456b-93bf-001fc08654f5",
+      "name": "Set Normalize",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "appnrxojv6QGJhFA6"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "tblbzTcKvZ2GutL7d",
+          "mode": "id"
+        },
+        "triggerField": "ultima_atualizacao",
+        "additionalFields": {
+          "viewId": "viwxhnWUWWofalb05"
+        }
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -176
+      ],
+      "id": "1fed5299-83c8-4796-ab5d-ec17f560f518",
+      "name": "Airtable Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "maNIeLZl3XAznplu",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "2166c818-4763-44c3-b2a8-6ec01039951e",
+              "leftValue": "={{ $json.estado }}",
+              "rightValue": "SP",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "47e0d7e3-ca3f-4b1d-b208-eef2d6ce1674",
+              "leftValue": "={{ $json.estado }}",
+              "rightValue": "RJ",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "2e033e0a-0a55-4dcb-bc8b-bd7527a8cfba",
+      "name": "Condicionais",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appnrxojv6QGJhFA6",
+          "mode": "list",
+          "cachedResultName": "Controle de Prospectos",
+          "cachedResultUrl": "https://airtable.com/appnrxojv6QGJhFA6"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblbzTcKvZ2GutL7d",
+          "mode": "list",
+          "cachedResultName": "Prospectos",
+          "cachedResultUrl": "https://airtable.com/appnrxojv6QGJhFA6/tblbzTcKvZ2GutL7d"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Encaminhado",
+            "id": "={{ $json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Stand by",
+                  "value": "Stand by"
+                },
+                {
+                  "name": "Encaminhado",
+                  "value": "Encaminhado"
+                },
+                {
+                  "name": "Apto",
+                  "value": "Apto"
+                },
+                {
+                  "name": "Rejeitado",
+                  "value": "Rejeitado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Cidade",
+              "displayName": "Cidade",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Dias no Status Atual",
+              "displayName": "Dias no Status Atual",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Primeira Letra do Estado",
+              "displayName": "Primeira Letra do Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Resumo do Prospecto",
+              "displayName": "Resumo do Prospecto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sugestão de Próxima Ação",
+              "displayName": "Sugestão de Próxima Ação",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "ultima_atualizacao",
+              "displayName": "ultima_atualizacao",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        272,
+        -272
+      ],
+      "id": "4cae810e-6d75-44c8-815a-7ce9359e8b0b",
+      "name": "Encaminhado",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "maNIeLZl3XAznplu",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appnrxojv6QGJhFA6",
+          "mode": "list",
+          "cachedResultName": "Controle de Prospectos",
+          "cachedResultUrl": "https://airtable.com/appnrxojv6QGJhFA6"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblbzTcKvZ2GutL7d",
+          "mode": "list",
+          "cachedResultName": "Prospectos",
+          "cachedResultUrl": "https://airtable.com/appnrxojv6QGJhFA6/tblbzTcKvZ2GutL7d"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Rejeitado",
+            "id": "={{ $json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Stand by",
+                  "value": "Stand by"
+                },
+                {
+                  "name": "Encaminhado",
+                  "value": "Encaminhado"
+                },
+                {
+                  "name": "Apto",
+                  "value": "Apto"
+                },
+                {
+                  "name": "Rejeitado",
+                  "value": "Rejeitado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Cidade",
+              "displayName": "Cidade",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Dias no Status Atual",
+              "displayName": "Dias no Status Atual",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Primeira Letra do Estado",
+              "displayName": "Primeira Letra do Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Resumo do Prospecto",
+              "displayName": "Resumo do Prospecto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Sugestão de Próxima Ação",
+              "displayName": "Sugestão de Próxima Ação",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "ultima_atualizacao",
+              "displayName": "ultima_atualizacao",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        272,
+        -80
+      ],
+      "id": "8f0e614f-4737-4096-b226-d36cbde16fa3",
+      "name": "Rejeitado",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "maNIeLZl3XAznplu",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Set Normalize": {
+      "main": [
+        [
+          {
+            "node": "Condicionais",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Condicionais": {
+      "main": [
+        [
+          {
+            "node": "Encaminhado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejeitado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "15a14264-72be-4952-b05e-6e3e5a52bda2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "18f6db3cd438969cbcdf268046cb4bbd3e03f8d00b39761a3068f902bd33a5e0"
+  },
+  "id": "1LImlaCeE713sfvK",
+  "tags": []
+}

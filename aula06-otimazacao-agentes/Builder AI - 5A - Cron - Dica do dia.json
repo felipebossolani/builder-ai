@@ -1,0 +1,137 @@
+{
+  "name": "Builder AI - 5A - Cron - Dica do dia",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -304,
+        -160
+      ],
+      "id": "15da8b27-8ee2-4f3c-beb6-443616bc6c39",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3280b351-b306-4527-b691-fb7b8396d858",
+              "name": "titulo",
+              "value": "Citação do dia",
+              "type": "string"
+            },
+            {
+              "id": "fca7410b-3d5c-45dd-8140-29fb03a5d31b",
+              "name": "citacao",
+              "value": "={{ $json.quoteText }}",
+              "type": "string"
+            },
+            {
+              "id": "d8a76425-607c-4847-a03b-4d0c358b7ba7",
+              "name": "Autor",
+              "value": "={{ $json.quoteAuthor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        144,
+        -160
+      ],
+      "id": "f8eab52f-dbfd-42c3-889f-c0b040a4d511",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "url": "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        -160
+      ],
+      "id": "6ddc0ef8-fd4e-4c96-a057-a4e052f383cc",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://httpbin.org/anything",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"channel\":\"whatsapp\",\n  \"to\":\"+55 11 99999-9999\",\n  \"from\":\"+14155238886\",\n  \"titulo\":\"{{$json.titulo}}\",\n\"citacao\":\"{{$json.citacao}}\",\n\"autor\":\"{{$json.autor}}\",\n  \"simulate\": true\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        -160
+      ],
+      "id": "b7de2c00-5cce-4f7a-8315-06b4287eee70",
+      "name": "HTTP Request1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1b957439-e2c7-4a77-9a78-dd5fe4a6ca7c",
+  "meta": {
+    "instanceId": "18f6db3cd438969cbcdf268046cb4bbd3e03f8d00b39761a3068f902bd33a5e0"
+  },
+  "id": "o6c7EqGhNWX8RSDO",
+  "tags": []
+}
